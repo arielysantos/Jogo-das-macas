@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Apple : MonoBehaviour
+public class Apple : MonoBehaviourPun
 {
     const int speed = 5;
     [SerializeField] int score;
@@ -23,5 +24,11 @@ public class Apple : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    [PunRPC]
+    void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

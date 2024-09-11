@@ -1,17 +1,21 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] applePrefabs;
+    [SerializeField] string[] applePrefabs;
 
     float timer;
     const float cooldown = 1;
 
     private void Update()
     {
-        Spawn();
+        if (Photon.Pun.PhotonNetwork.IsMasterClient)
+        {
+            Spawn();
+        }
     }
 
     void Spawn()
@@ -22,7 +26,7 @@ public class SpawnManager : MonoBehaviour
         {
             float appleIndex = Random.Range(0, 1f);
 
-            GameObject appleSelected = null;
+            string appleSelected = null;
 
             switch(appleIndex)
             {
@@ -37,7 +41,7 @@ public class SpawnManager : MonoBehaviour
                     break;
             }
 
-            Instantiate(appleSelected, new Vector3(Random.Range(-GameManager.instance.ScreenBounds.x, GameManager.instance.ScreenBounds.x), GameManager.instance.ScreenBounds.y), Quaternion.identity);
+            NetworkManager.instance.Instantiate(appleSelected, new Vector3(Random.Range(-GameManager.instance.ScreenBounds.x, GameManager.instance.ScreenBounds.x), GameManager.instance.ScreenBounds.y), Quaternion.identity);
             timer = cooldown;
         }
     }
