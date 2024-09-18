@@ -5,4 +5,5 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPun
 {
-    
+
+}
