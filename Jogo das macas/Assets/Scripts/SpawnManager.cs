@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
 
         if(timer <= 0)
         {
-            float appleIndex = Random.Range(0,1);
+            float appleIndex = Random.Range(0,1f);
 
             string appleSelected;
 

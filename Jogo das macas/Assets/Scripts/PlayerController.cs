@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviourPun
 {
     const int speed = 10;
 
-    int direction;
+    float direction;
     Rigidbody2D rigidbody2D;
 
     bool playerLocal;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviourPun
     {
         if (playerLocal)
         {
-            direction = (int)Input.GetAxis("Horizontal");
+            direction = Input.GetAxis("Horizontal");
 
             Move();
         }

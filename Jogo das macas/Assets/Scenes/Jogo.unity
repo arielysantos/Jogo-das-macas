@@ -561,10 +561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f8f02433712d743a396d96c6d26193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applePrefabs:
-  - Prefabs/Red Apple
-  - Prefabs/Green Apple
-  - Prefabs/Golden Apple
 --- !u!4 &1661514982
 Transform:
   m_ObjectHideFlags: 0

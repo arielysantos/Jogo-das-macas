@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviourPun
 {
     Vector2 screenBounds;
     int score, playersInGame;
-    Text scoreText;
+    [SerializeField] Text scoreText;
 
     public static GameManager instance;
 
