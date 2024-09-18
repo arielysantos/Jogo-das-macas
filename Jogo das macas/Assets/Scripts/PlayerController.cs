@@ -41,5 +41,20 @@ public class PlayerController : MonoBehaviourPun
 
         Vector2 currentPosition =  transform.position;
 
+        currentPosition.x = Mathf.Clamp(currentPosition.x, -GameManager.instance.ScreenBounds.x, GameManager.instance.ScreenBounds.x);
+
+        transform.position = currentPosition;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Apple") && playerLocal)
+        {
+            int value = collision.GetComponent<Apple>().Score;
+
+            GameManager.instance.photonView.RPC("AddScore", RpcTarget.All, value);
+
+            collision.GetComponent<Apple>().photonView.RPC("Destroy", RpcTarget.All);
+        }
     }
 }
