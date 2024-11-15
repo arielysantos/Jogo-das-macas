@@ -1,44 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SpawnManager : MonoBehaviour
+// Interface para gerenciar o spawn
+public interface ISpawnManager
 {
-    [SerializeField] GameObject[] applePrefabs;
-
-    float timer;
-    const float cooldown = 1;
-
+    void Spawn(); // Método de spawn
+    void SetCooldown(float newCooldown); // Define o cooldown do spawn
+    void AddPrefab(GameObject prefab); // Adiciona um novo prefab à lista
+    void ClearPrefabs(); // Limpa a lista de prefabs
+}
+public class SpawnManager : MonoBehaviour, ISpawnManager
+{
+    [SerializeField] private List<GameObject> applePrefabs = new List<GameObject>(); // Lista de prefabs
+    private float timer;
+    private float cooldown = 1f; // Cooldown padrão
     private void Update()
     {
         Spawn();
     }
-
-    void Spawn()
+    // Implementação do método de spawn
+    public void Spawn()
     {
         timer -= Time.deltaTime;
-
-        if(timer <= 0)
+        if (timer <= 0 && applePrefabs.Count > 0)
         {
-            float appleIndex = Random.Range(0, 1f);
-
-            GameObject appleSelected = null;
-
-            switch(appleIndex)
-            {
-                case <= 0.5f:
-                    appleSelected = applePrefabs[0];
-                    break;
-                case <= 0.8f:
-                    appleSelected = applePrefabs[1];
-                    break;
-                case > 0.8f:
-                    appleSelected = applePrefabs[2];
-                    break;
-            }
-
-            Instantiate(appleSelected, new Vector3(Random.Range(-GameManager.instance.ScreenBounds.x, GameManager.instance.ScreenBounds.x), GameManager.instance.ScreenBounds.y), Quaternion.identity);
+            GameObject appleSelected = GetRandomApple();
+            Vector3 spawnPosition = new Vector3(
+                Random.Range(-GameManager.instance.ScreenBounds.x, GameManager.instance.ScreenBounds.x),
+                GameManager.instance.ScreenBounds.y,
+                0
+            );
+            Instantiate(appleSelected, spawnPosition, Quaternion.identity);
             timer = cooldown;
         }
+    }
+
+    private GameObject GetRandomApple()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    // Método para definir o cooldown do spawn
+    public void SetCooldown(float newCooldown)
+    {
+        cooldown = Mathf.Max(0.1f, newCooldown); // Garante que o cooldown não seja menor que 0.1
+    }
+    // Método para adicionar um novo prefab à lista
+    public void AddPrefab(GameObject prefab)
+    {
+        if (prefab != null && !applePrefabs.Contains(prefab))
+        {
+            applePrefabs.Add(prefab);
+        }
+    }
+    // Método para limpar todos os prefabs da lista
+    public void ClearPrefabs()
+    {
+        applePrefabs.Clear();
     }
 }
