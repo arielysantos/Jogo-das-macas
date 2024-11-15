@@ -34,6 +34,12 @@ public class SpawnManager : MonoBehaviour, ISpawnManager
             timer = cooldown;
         }
     }
+
+    private GameObject GetRandomApple()
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Método para definir o cooldown do spawn
     public void SetCooldown(float newCooldown)
     {
@@ -52,3 +58,4 @@ public class SpawnManager : MonoBehaviour, ISpawnManager
     {
         applePrefabs.Clear();
     }
+}
